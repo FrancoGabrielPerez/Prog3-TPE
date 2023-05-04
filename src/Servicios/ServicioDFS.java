@@ -30,7 +30,7 @@ public class ServicioDFS {
 		}
 		List<Integer> discoveryOrder = new ArrayList<>();
 		for (Integer vertex : vertices.keySet()) {
-			if (!vertices.get(vertex).isFinished()) {
+			if (!vertices.get(vertex).isVisited()) {
 				discoveryOrder.addAll(DFS(vertex));
 			}
 		}

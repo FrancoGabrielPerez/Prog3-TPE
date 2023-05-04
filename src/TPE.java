@@ -38,5 +38,8 @@ public class TPE {
 		ServicioDFS dfs = new ServicioDFS(grafo);
 		System.out.println(dfs.dfsForest());
 		System.out.println(dfs);
+		ServicioBFS bfs = new ServicioBFS(grafo);
+		System.out.println(bfs.bfsForest());
+		System.out.println(bfs);
 	}
 }
