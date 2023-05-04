@@ -1,6 +1,7 @@
-import java.util.Iterator;
 
 import Grafo.*;
+import Servicios.ServicioBFS;
+import Servicios.ServicioDFS;
 
 public class TPE {
 	public static void main(String[] args) throws Exception {
@@ -33,11 +34,9 @@ public class TPE {
 		System.out.println("Arco 13-2?: " + grafo.existeArco(13, 2));
 		grafo.borrarArco(13, 2);
 		System.out.println("Arco 13-2?: " + grafo.existeArco(13, 2));
-		System.out.print("Arcos: [");
-		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
-			Arco<Integer> a = it.next();
-			System.out.print(" " + a.getVerticeOrigen() + "-" + a.getVerticeDestino() + " ");
-		}
-		System.out.println("]");
+		System.out.println(grafo);
+		ServicioDFS dfs = new ServicioDFS(grafo);
+		System.out.println(dfs.dfsForest());
+		System.out.println(dfs);
 	}
 }

@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 
 public class GrafoDirigido<T> implements Grafo<T> {
+
 	private HashMap<Integer, HashMap<Integer, Arco<T>>> graph;
 	private int cantArcs;
 
@@ -114,4 +115,16 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return graph.containsKey(verticeId) ? graph.get(verticeId).values().iterator() : Collections.emptyIterator();
 	}
 
+	@Override
+	public String toString() {
+		String s = "[";
+		Iterator<Arco<T>> arcsIt = this.obtenerArcos();
+		while (arcsIt.hasNext()) {
+			s += " ( " + arcsIt.next() + ") ";
+		}
+		s += "] {" + cantArcs + "}";
+		return s;
+	}
+
+	
 }
