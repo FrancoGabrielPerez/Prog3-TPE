@@ -7,7 +7,7 @@ import java.util.NoSuchElementException;
 
 public class GrafoDirigido<T> implements Grafo<T> {
 
-	private HashMap<Integer, HashMap<Integer, Arco<T>>> graph;
+	private HashMap<Integer, HashMap<Integer, Arco<T>>> graph; //se pueden considerar O(1) los metodos de un hashmap o se toman como O(n)?. https://en.wikipedia.org/wiki/Hash_table
 	private int cantArcs;
 
 	public GrafoDirigido() {
@@ -15,11 +15,18 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		this.cantArcs = 0;
 	}
 
+	/**
+    * Complejidad: O(1) debido a que se está utilizando el método putIfAbsent() de HashMap,
+	* el cual realiza una búsqueda y una inserción en tiempo constante.
+    */
 	@Override
 	public void agregarVertice(int verticeId) {
 		graph.putIfAbsent(verticeId, new HashMap<>());
 	}
 
+	/**
+    * Complejidad: O(N) donde N es la cantidad de vertices, debido a que
+    */
 	@Override
 	public void borrarVertice(int verticeId) {
 		if (! graph.containsKey(verticeId)) {
@@ -30,6 +37,11 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		graph.forEach((k,v) -> {if (v.remove(verticeId) != null){cantArcs--;}});
 	}
 
+	/**
+    * Complejidad: O(1) debido a que se busca directamente la lista de adyacencia correspondiente al vertice verticeId1
+    * y se agrega el arco a esa lista utilizando el método put() de HashMap.
+    * Además, se incrementa el contador de cantArcs en una unidad, lo cual es una operación de tiempo constante.
+    */
 	@Override
 	public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
 		if (graph.containsKey(verticeId1)) {
@@ -38,10 +50,17 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		}
 	}
 
+	/**
+    * Complejidad: O(1) ya que se llama a agregarArco(int, int, T) que es de complejidad O(1)
+    */
 	public void agregarArco(int verticeId1, int verticeId2) {
 		agregarArco(verticeId1, verticeId2, null);
 	}
 
+	/**
+    * Complejidad: O(1) debido a que utiliza métodos de HashMap como remove() y containsKey(),
+    * los cuales tienen complejidad O(1) en promedio para la mayoría de los casos.
+    */
 	@Override
 	public void borrarArco(int verticeId1, int verticeId2) {
 		if (graph.containsKey(verticeId1)) {
