@@ -44,7 +44,7 @@ public class ServicioCaminos {
 		arcos.putIfAbsent(v, new HashSet<>());
 		if (v == destino) {
 			System.out.println(caminoActual);
-			roads.add(caminoActual);
+			roads.add(new ArrayList<>(caminoActual));
 		}
 		Iterator<Integer> itAdjacents  = grafo.obtenerAdyacentes(v);
 		if (caminoActual.size() < lim) {			//¿< o <=?
@@ -54,11 +54,11 @@ public class ServicioCaminos {
 					arcos.get(v).add(Adjacent);
 					caminosDFS(Adjacent, roads, caminoActual);
 					caminoActual.remove(caminoActual.size()-1);
+					arcos.get(v).remove(Adjacent);
 				} else {
 					//cyclical = true;
 				}
 			}
-			arcos.remove(v);
 		}
 		return;
 	}

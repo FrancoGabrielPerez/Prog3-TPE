@@ -24,7 +24,7 @@ public class TPE {
 		grafo.agregarArco(1, 4);
 		grafo.agregarArco(2, 4);
 		grafo.agregarArco(3, 4);
-		grafo.agregarArco(3, 5);
+		//grafo.agregarArco(3, 5);
 		grafo.agregarArco(4, 6);
 		grafo.agregarArco(4, 7);
 		grafo.agregarArco(6, 2);
