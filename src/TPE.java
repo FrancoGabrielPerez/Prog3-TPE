@@ -72,7 +72,7 @@ public class TPE {
 			if (caminos.size() == 0)
 				System.out.println("No hay camino/s posible/s entre el/los vertice/s ingresado/s.");
 			else {
-				System.out.println("Camino/s posibles entre el vertice " + origen + " y el " + destino + ", pasando como maximo por"+ limite + " arcos: ");
+				System.out.println("Camino/s posibles entre el vertice " + origen + " y el " + destino + ", pasando como maximo por "+ limite + " arcos: ");
 				int index = 1;
 				for (List<Integer> camino : caminos) {
 					System.out.println("  " + index + ": " + camino);
