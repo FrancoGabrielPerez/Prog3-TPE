@@ -1,5 +1,7 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Scanner;
 
 import Grafo.*;
 import Servicios.ServicioBFS;
@@ -45,11 +47,39 @@ public class TPE {
 		// ServicioBFS bfs = new ServicioBFS(grafo);
 		// System.out.println(bfs.bfsForest());
 		// System.out.println(bfs);
-		ServicioCaminos s = new ServicioCaminos(grafo, 4, 7, 10);
-		List<List<Integer>> caminos = s.caminos();
-		for (List<Integer> camino : caminos) {
-			System.out.println(camino);
+
+
+		// Servicio caminos
+		
+		System.out.print("Vertices del grafo: [");
+		Iterator<Integer> itVertices = grafo.obtenerVertices();
+		while (itVertices.hasNext()){
+			Integer value = itVertices.next();
+			if (!itVertices.hasNext())
+				System.out.println(value + "]");
+			else
+				System.out.print(value + ", ");			
 		}
-		System.out.println("termino");
+		try (Scanner scanner = new Scanner(System.in)){            
+            System.out.print("Ingrese el vertice de origen: ");
+            Integer origen = scanner.nextInt();
+			System.out.print("Ingrese el vertice de de destino: ");
+            Integer destino = scanner.nextInt();
+			System.out.print("Ingrese el limite de arcos a recorrer: ");
+            Integer limite = scanner.nextInt();
+			ServicioCaminos s = new ServicioCaminos(grafo, origen, destino, limite);
+			List<List<Integer>> caminos = s.caminos();
+			if (caminos.size() == 0)
+				System.out.println("No hay camino/s posible/s entre el/los vertice/s ingresado/s.");
+			else {
+				System.out.println("Camino/s posibles entre el vertice " + origen + " y el " + destino + ", pasando como maximo por"+ limite + " arcos: ");
+				int index = 1;
+				for (List<Integer> camino : caminos) {
+					System.out.println("  " + index + ": " + camino);
+					index++;
+				}
+			}           
+        }
+		
 	}
 }
