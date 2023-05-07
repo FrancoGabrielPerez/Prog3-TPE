@@ -63,7 +63,7 @@ public class TPE {
 		try (Scanner scanner = new Scanner(System.in)){            
             System.out.print("Ingrese el vertice de origen: ");
             Integer origen = scanner.nextInt();
-			System.out.print("Ingrese el vertice de de destino: ");
+			System.out.print("Ingrese el vertice de destino: ");
             Integer destino = scanner.nextInt();
 			System.out.print("Ingrese el limite de arcos a recorrer: ");
             Integer limite = scanner.nextInt();
