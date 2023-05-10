@@ -139,9 +139,8 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	/**
-	 * Complejidad: O(v) donde v es la cantidad de vertices debido a que para devolver un iterador de arcos se crea y retorna 
-	 * un iterador propio en el cual las implementacion de hasNext() tiene una complejidad O(v) ya que se va a iterar sobre 
-	 * todos los vertices del grafo.
+	 * Complejidad: O(1) debido a que para devolver un iterador de arcos se crea y retorna un iterador propio. 
+	 * Las implementaciones de hasNext() y next() de dicho iterador tienen una complejidad O(v), detalladas en dichos metodos.
 	 */ 
 	@Override
 	public Iterator<Arco<T>> obtenerArcos() {
@@ -149,6 +148,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 			private Iterator<HashMap<Integer, Arco<T>>> outerIterator = graph.values().iterator();
 			private Iterator<Arco<T>> innerIterator = Collections.emptyIterator();
 	
+			/**
+			 * Complejidad: O(v) donde v es la cantidad de vertices debido a que esta implementacion de hasNext()
+			 * itera sobre todos los vertices para obtener sus adjacentes
+			 */ 
 			@Override
 			public boolean hasNext() {
 				while (!innerIterator.hasNext() && outerIterator.hasNext()) {
@@ -157,6 +160,10 @@ public class GrafoDirigido<T> implements Grafo<T> {
 				return innerIterator.hasNext();
 			}
 	
+			/**
+			 * Complejidad: O(v) donde v es la cantidad de vertices debido a que esta implementacion de next()
+			 * utiliza hasNetx() la cual tiene una complejidad de O(v)
+			 */ 
 			@Override
 			public Arco<T> next() {
 				if (!hasNext()) {
