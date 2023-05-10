@@ -47,9 +47,7 @@ public class ServicioDFS {
 			Integer Adjacent = itAdjacents.next();
 			if (!vertices.get(Adjacent).isVisited()) {
 				discoveryOrder.addAll(DFS(Adjacent));
-			} else {
-				//cyclical = true;
-			}
+			} 
 		}
 		vertices.get(v).f = time;
 		time++;

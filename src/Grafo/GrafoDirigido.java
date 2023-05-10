@@ -139,9 +139,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	}
 
 	/**
-	 * Complejidad: O(1) debido a que para devolver un iterador de arcos se crea y retorna un iterador propio 
-	 * en el cual las implementaciones de hasNext() y next() son O(1), ya que las mismas utilizan metodos 
-	 * como values() e iterator() que son de complejidad O(1). 
+	 * Complejidad: O(v) donde v es la cantidad de vertices debido a que para devolver un iterador de arcos se crea y retorna 
+	 * un iterador propio en el cual las implementacion de hasNext() tiene una complejidad O(v) ya que se va a iterar sobre 
+	 * todos los vertices del grafo.
 	 */ 
 	@Override
 	public Iterator<Arco<T>> obtenerArcos() {
