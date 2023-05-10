@@ -39,7 +39,7 @@ public class ServicioCaminos {
 	}
 
 
-	private void caminosDFS(Integer v, List<List<Integer>> roads, List<Integer> caminoActual){
+	private void caminosDFS(Integer v, List<List<Integer>> roads, List<Integer> caminoActual){ //O(v*a) v: vertives y a: arcos
 		if (v == destino && !caminoActual.isEmpty()) { //si el origen y destino son iguales lo agregaba y no deberia. Asi quedo arreglado
 			caminoActual.add(v);
 			//System.out.println(caminoActual);

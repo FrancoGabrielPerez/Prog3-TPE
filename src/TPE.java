@@ -31,8 +31,8 @@ public class TPE {
 		grafo.agregarArco(6, 7);
 		grafo.agregarArco(5, 1);
 		grafo.agregarArco(7, 2);
-		grafo.agregarArco(13, 13);
-		grafo.agregarArco(13, 2);
+		//grafo.agregarArco(13, 13);
+		//grafo.agregarArco(13, 2);
 		// System.out.println("Arcos: " + grafo.cantidadArcos());
 		// System.out.println("Vertices: " + grafo.cantidadVertices());
 		// System.out.println("Vertice 1?: " + grafo.contieneVertice(1));
@@ -60,6 +60,7 @@ public class TPE {
 			else
 				System.out.print(value + ", ");			
 		}
+		System.out.println(grafo);
 		try (Scanner scanner = new Scanner(System.in)){            
             System.out.print("Ingrese el vertice de origen: ");
             Integer origen = scanner.nextInt();
