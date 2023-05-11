@@ -39,17 +39,17 @@ public class ServicioCaminos {
 			roads.add(new ArrayList<>(caminoActual));
 		} else {
 			caminoActual.add(v);
-		}
-		arcos.putIfAbsent(v, new HashSet<>());
-		Iterator<Integer> itAdjacents  = grafo.obtenerAdyacentes(v);
-		if (caminoActual.size() <= lim) {			//¿< o <=?
-			while (itAdjacents.hasNext()) {
-				Integer Adjacent = itAdjacents.next();
-				if (!arcos.get(v).contains(Adjacent)) {
-					arcos.get(v).add(Adjacent);
-					caminosDFS(Adjacent, roads, caminoActual);
-					arcos.get(v).remove(Adjacent);
-				} 
+			arcos.putIfAbsent(v, new HashSet<>());
+			Iterator<Integer> itAdjacents  = grafo.obtenerAdyacentes(v);
+			if (caminoActual.size() <= lim) {			//¿< o <=?
+				while (itAdjacents.hasNext()) {
+					Integer Adjacent = itAdjacents.next();
+					if (!arcos.get(v).contains(Adjacent)) {
+						arcos.get(v).add(Adjacent);
+						caminosDFS(Adjacent, roads, caminoActual);
+						arcos.get(v).remove(Adjacent);
+					} 
+				}
 			}
 		}
 		caminoActual.remove(caminoActual.size()-1);

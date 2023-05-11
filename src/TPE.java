@@ -31,22 +31,23 @@ public class TPE {
 		grafo.agregarArco(6, 7);
 		grafo.agregarArco(5, 1);
 		grafo.agregarArco(7, 2);
-		//grafo.agregarArco(13, 13);
+		grafo.agregarArco(13, 13);
+		grafo.agregarArco(4, 5);
 		//grafo.agregarArco(13, 2);
-		// System.out.println("Arcos: " + grafo.cantidadArcos());
-		// System.out.println("Vertices: " + grafo.cantidadVertices());
-		// System.out.println("Vertice 1?: " + grafo.contieneVertice(1));
-		// System.out.println("Vertice 6?: " + grafo.contieneVertice(6));
-		// System.out.println("Arco 13-2?: " + grafo.existeArco(13, 2));
-		// grafo.borrarArco(13, 2);
-		// System.out.println("Arco 13-2?: " + grafo.existeArco(13, 2));
-		// System.out.println(grafo);
-		// ServicioDFS dfs = new ServicioDFS(grafo);
-		// System.out.println(dfs.dfsForest());
-		// System.out.println(dfs);
-		// ServicioBFS bfs = new ServicioBFS(grafo);
-		// System.out.println(bfs.bfsForest());
-		// System.out.println(bfs);
+		System.out.println("Arcos: " + grafo.cantidadArcos());
+		System.out.println("Vertices: " + grafo.cantidadVertices());
+		System.out.println("Vertice 1?: " + grafo.contieneVertice(1));
+		System.out.println("Vertice 6?: " + grafo.contieneVertice(6));
+		System.out.println("Arco 13-2?: " + grafo.existeArco(13, 2));
+		grafo.borrarArco(13, 2);
+		System.out.println("Arco 13-2?: " + grafo.existeArco(13, 2));
+		System.out.println(grafo);
+		ServicioDFS dfs = new ServicioDFS(grafo);
+		System.out.println(dfs.dfsForest());
+		System.out.println(dfs);
+		ServicioBFS bfs = new ServicioBFS(grafo);
+		System.out.println(bfs.bfsForest());
+		System.out.println(bfs);
 
 
 		// Servicio caminos
