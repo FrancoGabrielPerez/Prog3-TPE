@@ -27,8 +27,7 @@ public class CSVReader {
 			Integer origen = Integer.parseInt(line[0].trim().substring(1));
 			Integer destino = Integer.parseInt(line[1].trim().substring(1));
 			Integer etiqueta = Integer.parseInt(line[2].trim());
-			
-			// Aca instanciar lo que necesiten en base a los datos leidos
+			//TODO Aca instanciar lo que necesiten en base a los datos leidos
 		}
 		
 	}
