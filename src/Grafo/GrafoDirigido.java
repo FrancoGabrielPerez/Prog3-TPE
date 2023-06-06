@@ -2,8 +2,10 @@ package Grafo;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 public class GrafoDirigido<T> implements Grafo<T> {
 
@@ -199,5 +201,12 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return s;
 	}
 
+	public Set<Integer> getVertices() {
+		return new HashSet<>(graph.keySet());
+	}
+	
+	public Set<Integer> getAdjVertices(int vertexId) {
+		return new HashSet<>(graph.get(vertexId).keySet());
+	}
 	
 }
