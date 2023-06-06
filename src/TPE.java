@@ -85,10 +85,21 @@ public class TPE {
         }
 	}
 
-	public static void main(String[] args) throws Exception {
+	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
-		String path = "PATH/AL/ARCHIVO";
-		CSVReader reader = new CSVReader(path);
-		reader.read();
+		Grafo<T> grafo = new GrafoDirigido<>();
+		String path = "Prog3-TPE/src/Datasets/dataset1.txt";
+		CSVReader<T> reader = new CSVReader<T>(path);
+		grafo = reader.read();
+		System.out.println(grafo.toString());
+		System.out.print("Vertices del grafo: [");
+		Iterator<Integer> itVertices = grafo.obtenerVertices();
+		while (itVertices.hasNext()){
+			Integer value = itVertices.next();
+			if (!itVertices.hasNext())
+				System.out.println(value + "]");
+			else
+				System.out.print(value + ", ");			
+		}
 	}
 }

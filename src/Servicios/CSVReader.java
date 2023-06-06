@@ -6,16 +6,19 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import Grafo.*;
 
-public class CSVReader {
+public class CSVReader <T> {
 
 	private String path;
+	private Grafo<T> grafo;
 	
 	public CSVReader(String path) {
 		this.path = path;
+		this.grafo = new GrafoDirigido<>();
 	}
 	
-	public void read() {
+	public Grafo<T> read() {
 		
 		// Obtengo una lista con las lineas del archivo
 		// lines.get(0) tiene la primer linea del archivo
@@ -25,11 +28,20 @@ public class CSVReader {
 		for (String[] line: lines) {
 			// Cada linea es un arreglo de Strings, donde cada posicion guarda un elemento
 			Integer origen = Integer.parseInt(line[0].trim().substring(1));
+			// Integer destino = Integer.parseInt(line[1].trim().substring(1));
+			// Integer etiqueta = Integer.parseInt(line[2].trim());
+			//TODO Aca instanciar lo que necesiten en base a los datos leidos
+			grafo.agregarVertice(origen);
+		}
+		for (String[] line: lines) {
+			// Cada linea es un arreglo de Strings, donde cada posicion guarda un elemento
+			Integer origen = Integer.parseInt(line[0].trim().substring(1));
 			Integer destino = Integer.parseInt(line[1].trim().substring(1));
 			Integer etiqueta = Integer.parseInt(line[2].trim());
 			//TODO Aca instanciar lo que necesiten en base a los datos leidos
+			grafo.agregarArco((int) origen, (int) destino, (T) etiqueta);
 		}
-		
+		return grafo;
 	}
 
 	private ArrayList<String[]> readContent() {
