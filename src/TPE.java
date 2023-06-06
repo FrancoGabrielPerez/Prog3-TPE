@@ -1,15 +1,16 @@
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 import Grafo.*;
+import Servicios.CSVReader;
 import Servicios.ServicioBFS;
 import Servicios.ServicioCaminos;
 import Servicios.ServicioDFS;
 
 public class TPE {
-	public static void main(String[] args) throws Exception {
+
+	static public void TestParte1(){
 		GrafoDirigido<Integer> grafo = new GrafoDirigido<>();
 		grafo.agregarVertice(1);
 		grafo.agregarVertice(2);
@@ -82,6 +83,12 @@ public class TPE {
 				}
 			}           
         }
-		
+	}
+
+	public static void main(String[] args) throws Exception {
+		//TestParte1();
+		String path = "PATH/AL/ARCHIVO";
+		CSVReader reader = new CSVReader(path);
+		reader.read();
 	}
 }
