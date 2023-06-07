@@ -87,14 +87,14 @@ public class TPE {
 	}
 
 	static private void printStations(SimpleEntry<HashMap<Integer, Integer>, Integer> solution, double timer, String technique){
+		System.out.println(technique);
 		for (Map.Entry<Integer, Integer> entry : solution.getKey().entrySet()) {
 			if (entry.getValue() != null) {
 				System.out.print("E" + entry.getValue() + "-E" + entry.getKey() + ", ");
 			}
 		}
 		System.out.println();
-		System.out.println(technique);
-		System.out.println(solution.getValue() + " kms");
+		System.out.println(solution.getValue() + " kms.");
 		System.out.println("Metrica: tiempo ejecucion "+ timer + " ms.");
 	}
 	
