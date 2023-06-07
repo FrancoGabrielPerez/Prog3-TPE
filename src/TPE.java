@@ -86,15 +86,18 @@ public class TPE {
         }
 	}
 
-	static private void printStations(SimpleEntry<HashMap<Integer, Integer>, Integer> solution, double timer, String technique){
+	static private void printStations(SimpleEntry<HashMap<Integer, Integer>, Integer> solution, double timer, String technique, Grafo<Integer> g){
 		System.out.println(technique);
+		int distancia = 0;
 		for (Map.Entry<Integer, Integer> entry : solution.getKey().entrySet()) {
 			if (entry.getValue() != null) {
 				System.out.print("E" + entry.getValue() + "-E" + entry.getKey() + ", ");
+				distancia += g.obtenerArco(entry.getValue(), entry.getKey()).getEtiqueta();
 			}
 		}
 		System.out.println();
 		System.out.println(solution.getValue() + " kms.");
+		System.out.println(distancia + " kms.");
 		System.out.println("Metrica: tiempo ejecucion "+ timer + " ms.");
 	}
 	
@@ -108,7 +111,7 @@ public class TPE {
 		Timer t1 = new Timer(); //consultar sobre metrica a usar
 		t1.start();
 		SimpleEntry<HashMap<Integer, Integer>, Integer> bestSolution = Dijkstra.dijkstraAll(grafo);
-		printStations(bestSolution, t1.stop(), "Dijkstra");
+		printStations(bestSolution, t1.stop(), "Dijkstra", grafo);
 		
 		
 	}

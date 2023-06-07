@@ -23,6 +23,7 @@ public class Dijkstra { //TODO limapiar prints
 			int current = Collections.min(toVisit.entrySet(), Map.Entry.<Integer, Integer>comparingByValue()).getKey();
 			for (Integer v : g.getAdjVertices(current)) {
 				// System.out.println("c=" + current + " / v= " + v);
+				// aca contar las veces que entra, esto seria la metrica
 				int currentDist = distance.get(current) + g.obtenerArco(current, v).getEtiqueta();
 				if (currentDist < distance.get(v)) {
 					distance.put(v, currentDist);
@@ -61,34 +62,6 @@ public class Dijkstra { //TODO limapiar prints
 				bestSolution = currentSolution;
 			}
 		}
-		return new SimpleEntry<>(bestSolution, bestDistance);
+		return new SimpleEntry<>(bestSolution, bestDistance); // aca en vez de pasar la distancia pasamos la metrica
 	}
-	
-	/* static public SimpleEntry<HashMap<Integer, Integer>, Integer> dijkstraAll(Grafo<Integer> g){
-		var bestSolution = new Object(){HashMap<Integer, Integer> solution; int distance = Integer.MAX_VALUE;};
-		g.getVertices().forEach(v -> {
-			var currentSolution = new Object(){ HashMap<Integer, Integer> solution; int distance = 0; boolean valid = true;};
-			currentSolution.solution = Dijkstra.dijkstraVertex(g, v);
-			//System.out.println(currentSolution);
-			currentSolution.solution.entrySet().forEach(e -> {
-				if (e.getKey() != v) {
-					if (e.getValue() != null) {
-						currentSolution.distance += g.obtenerArco(e.getValue(), e.getKey()).getEtiqueta();
-						if (currentSolution.distance == -1) {
-							currentSolution.valid = false;
-						}
-					} else {
-						currentSolution.valid = false;
-					}
-				}
-			});
-			// System.out.println("best: " + bestSolution.distance);
-			// System.out.println("current: " + currentSolution.distance);
-			if ((currentSolution.valid) && (currentSolution.distance < bestSolution.distance)) {
-				bestSolution.distance = currentSolution.distance;
-				bestSolution.solution = currentSolution.solution;
-			}
-		});
-		return new SimpleEntry<>(bestSolution.solution, bestSolution.distance);
-	} */
 }
