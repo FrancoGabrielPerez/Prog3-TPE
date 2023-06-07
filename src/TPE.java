@@ -1,12 +1,13 @@
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
+import java.util.AbstractMap.SimpleEntry;
+import Servicios.Timer;
 
 import Grafo.*;
-import Servicios.CSVReader;
-import Servicios.ServicioBFS;
-import Servicios.ServicioCaminos;
-import Servicios.ServicioDFS;
+import Servicios.*;
 
 public class TPE {
 
@@ -85,21 +86,30 @@ public class TPE {
         }
 	}
 
+	static private void printStations(SimpleEntry<HashMap<Integer, Integer>, Integer> solution, double timer, String technique){
+		for (Map.Entry<Integer, Integer> entry : solution.getKey().entrySet()) {
+			if (entry.getValue() != null) {
+				System.out.print("E" + entry.getValue() + "-E" + entry.getKey() + ", ");
+			}
+		}
+		System.out.println();
+		System.out.println(technique);
+		System.out.println(solution.getValue() + " kms");
+		System.out.println("Metrica: tiempo ejecucion "+ timer + " ms.");
+	}
+	
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
-		Grafo<T> grafo = new GrafoDirigido<>();
-		String path = "Prog3-TPE/src/Datasets/dataset1.txt";
-		CSVReader<T> reader = new CSVReader<T>(path);
-		grafo = reader.read();
+		String path = "./Datasets/dataset3.txt";
+		CSVReader reader = new CSVReader(path);
+		Grafo<Integer> grafo = reader.read();
 		System.out.println(grafo.toString());
-		System.out.print("Vertices del grafo: [");
-		Iterator<Integer> itVertices = grafo.obtenerVertices();
-		while (itVertices.hasNext()){
-			Integer value = itVertices.next();
-			if (!itVertices.hasNext())
-				System.out.println(value + "]");
-			else
-				System.out.print(value + ", ");			
-		}
+		System.out.println(grafo.getVertices());
+		Timer t1 = new Timer(); //consultar sobre metrica a usar
+		t1.start();
+		SimpleEntry<HashMap<Integer, Integer>, Integer> bestSolution = Dijkstra.dijkstraAll(grafo);
+		printStations(bestSolution, t1.stop(), "Dijkstra");
+		
+		
 	}
 }
