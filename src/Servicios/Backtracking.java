@@ -33,6 +33,18 @@ public class Backtracking {
 		return false;
 	}
 
+	static private int distanceAdder(HashSet<Arco<Integer>> solution) {
+		int res = 0;
+		for (Arco<Integer> a : solution) {
+			res += a.getEtiqueta();
+		}
+		return res;
+	}
+
+	static private boolean isShorter(HashSet<Arco<Integer>> currentSolucion, HashSet<Arco<Integer>> bestSolucion) {
+		return distanceAdder(currentSolucion) < distanceAdder(bestSolucion);
+	}
+
 	static private void backaux(Grafo<Integer> grafo, Queue<Arco<Integer>> arcos, HashSet<Arco<Integer>> bestSolucion, HashSet<Arco<Integer>> currentSolucion){
 		if (isValid(currentSolucion, grafo.getVertices())) {
 			if (isShorter(currentSolucion, bestSolucion)) {
