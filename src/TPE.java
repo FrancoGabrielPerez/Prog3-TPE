@@ -104,18 +104,19 @@ public class TPE {
 	
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
-		String path = "Prog3-TPE/Datasets/dataset1.txt";
+		String path = "./Datasets/dataset1.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
-		System.out.println(grafo.toString());
-		System.out.println(grafo.getVertices());
+		//System.out.println(grafo.toString());
+		//System.out.println(grafo.getVertices());
 		// Timer t1 = new Timer(); //consultar sobre metrica a usar
 		// t1.start();
 		// SimpleEntry<HashMap<Integer, Integer>, Integer> bestSolution = Dijkstra.dijkstraAll(grafo);
 		// printStations(bestSolution, t1.stop(), "Dijkstra", grafo);
-
-		HashSet<Arco<Integer>> bestSolution = Backtracking.back(grafo);
-		System.out.println(bestSolution.toString());
+		
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> bestSolution = Backtracking.back(grafo);
+		System.out.println(bestSolution.getKey().toString());
+		System.out.println(bestSolution.getValue());
 		
 		
 	}
