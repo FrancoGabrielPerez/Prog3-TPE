@@ -1,21 +1,23 @@
 package Servicios;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.NoSuchElementException;
+import java.util.Set;
 import java.util.HashSet;
 import static java.lang.System.out;
 
 public class UnionFind
 {
     /**
-     * parent[i] points to parent of element i or to self. 
+     * Sets of vertices. 
      */
-    private int[] parent;
+    private HashMap<Integer, HashSet<Integer>> sets;
     
     /**
-     * rank[i] holds the rank (cardinality) of root element i. 
+     * Vertices with thier associated set. 
      */
-    private int[] rank;
+    private HashMap<Integer, Integer> associatedSet;
     
     /**
      * The number of disjoint sets
@@ -23,17 +25,21 @@ public class UnionFind
     private int num;
     
     /**
-     * Create n disjoint sets containing a single element numbered from 0 to n - 1.
+     * Create a disjoint for each vertex in vertices.
      * 
-     * @param n
+     * @param vertices
      */
-    public UnionFind(int n)
+    public UnionFind(Set<Integer> vertices)
     {
-        if (n <= 0)
-            throw new IllegalArgumentException("Expected n > 0");
+        if (vertices.isEmpty())
+            throw new IllegalArgumentException("vertices is empty");
         
-        parent = new int[n];
-        rank = new int[n];
+        sets = new HashMap<>(vertices.size());
+        associatedSet = new HashMap<>(vertices.size());
+        for (Integer v : vertices) {
+            sets.put(v, v);
+            associatedSet.put(v, v);
+        }
         for (int i = 0; i < n; ++i) {
             parent[i] = i; // root of self
             rank[i] = 1; // contains only self
