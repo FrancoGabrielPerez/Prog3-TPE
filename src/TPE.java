@@ -98,26 +98,24 @@ public class TPE {
 		}
 		System.out.println();
 		System.out.println(solution.getValue() + " kms.");
-		System.out.println(distancia + " kms.");
 		System.out.println("Metrica: tiempo ejecucion "+ timer + " ms.");
 	}
 	
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
-		String path = "./Datasets/dataset1.txt";
+		String path = "./Datasets/dataset0.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
-		//System.out.println(grafo.toString());
+		System.out.println(grafo.toString());
 		//System.out.println(grafo.getVertices());
 		// Timer t1 = new Timer(); //consultar sobre metrica a usar
 		// t1.start();
-		// SimpleEntry<HashMap<Integer, Integer>, Integer> bestSolution = Dijkstra.dijkstraAll(grafo);
-		// printStations(bestSolution, t1.stop(), "Dijkstra", grafo);
+		SimpleEntry<HashMap<Integer, Integer>, Integer> dijkstraSolution = Dijkstra.dijkstraAll(grafo);
+		printStations(dijkstraSolution, 0, "Dijkstra", grafo);
 		
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> bestSolution = Backtracking.back(grafo);
-		System.out.println(bestSolution.getKey().toString());
-		System.out.println(bestSolution.getValue());
-		
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolution = Backtracking.solve(grafo);
+		System.out.println(backtrackingSolution.getKey().toString());
+		System.out.println(backtrackingSolution.getValue());
 		
 	}
 }
