@@ -52,7 +52,8 @@ public class Backtracking {
 			for (int i = 0; i < arcos.size(); i++) { //se puede aplicar poda si currentsolution + candidate > bestSolution, se puede podar con union find tambien
 				Arco<Integer> candidate = arcos.poll();
 				currentSolucion.add(candidate);
-				bestSolucion = internalBacktracking(grafo, arcos, bestSolucion, currentSolucion);
+				if (distanceAdder(currentSolucion) <= 500)
+					bestSolucion = internalBacktracking(grafo, arcos, bestSolucion, currentSolucion);
 				currentSolucion.remove(candidate);
 				arcos.add(candidate);
 			}
