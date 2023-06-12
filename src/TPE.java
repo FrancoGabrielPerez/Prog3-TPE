@@ -1,10 +1,7 @@
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Scanner;
 import java.util.AbstractMap.SimpleEntry;
-import Servicios.Timer;
 import java.util.HashSet;
 
 import Grafo.*;
@@ -87,37 +84,39 @@ public class TPE {
         }
 	}
 
-	static private void printStations(SimpleEntry<HashMap<Integer, Integer>, Integer> solution, double timer, String technique, Grafo<Integer> g){
+	static private int distanceAdder(HashSet<Arco<Integer>> solution) {
+		int res = 0;
+		for (Arco<Integer> a : solution) {
+			res += a.getEtiqueta();
+		}
+		return res != 0 ? res : Integer.MAX_VALUE;
+	}
+
+	static private void printStations(SimpleEntry<HashSet<Arco<Integer>>, Integer> solution, String technique){
 		System.out.println(technique);
-		int distancia = 0;
-		for (Map.Entry<Integer, Integer> entry : solution.getKey().entrySet()) {
-			if (entry.getValue() != null) {
-				System.out.print("E" + entry.getValue() + "-E" + entry.getKey() + ", ");
-				distancia += g.obtenerArco(entry.getValue(), entry.getKey()).getEtiqueta();
-			}
+		int distance = 0;
+		for (Arco<Integer> a : solution.getKey()) {
+			System.out.print("E" + a.getVerticeOrigen() + "-E" + a.getVerticeDestino() + ", ");
+			distance += a.getEtiqueta();
 		}
 		System.out.println();
-		System.out.println(solution.getValue() + " kms.");
-		System.out.println("Metrica: tiempo ejecucion "+ timer + " ms.");
+		System.out.println("Distancia: " + distance + " kms.");
+		System.out.println("Metrica (bucles):  "+ solution.getValue());
 	}
 	
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
-		String path = "./Datasets/dataset3.txt";
+
+		String path = "./Datasets/dataset2.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
 		System.out.println(grafo.toString());
-		//System.out.println(grafo.getVertices());
-		// Timer t1 = new Timer(); //consultar sobre metrica a usar
-		// t1.start();
-		SimpleEntry<HashMap<Integer, Integer>, Integer> dijkstraSolution = Dijkstra.dijkstraAll(grafo);
-		printStations(dijkstraSolution, 0, "Dijkstra", grafo);
+		System.out.println(grafo.getVertices());
+
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolution = Dijkstra.solve(grafo);
+		printStations(dijkstraSolution, "Dijkstra");
 		
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolution = Backtracking.solve(grafo);
-		System.out.println(backtrackingSolution.getKey().toString());
-		System.out.println(backtrackingSolution.getValue());
-		System.out.println(Backtracking.metric);
-		
-		System.out.println(grafo.getVertices());
+		printStations(backtrackingSolution, "Backtracking");
 	}
 }
