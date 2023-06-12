@@ -1,15 +1,34 @@
 package Servicios;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Set;
 import java.util.AbstractMap.SimpleEntry;
 
 import Grafo.*;
 
-public class Backtracking {	
+public class Backtracking {
+	public static int metric = 0;
+
+	private static class Solutions{
+		HashSet<Arco<Integer>> bestSolution, currentSolution;
+		int bestDistance, currentDistance;
+		
+		public Solutions(int capacity) {
+			bestSolution = new HashSet<>(capacity);
+			bestDistance = Integer.MAX_VALUE;
+			currentSolution = new HashSet<>(capacity);
+			currentDistance = 0;
+
+		}
+	}
 	
 	static private boolean isValid(HashSet<Arco<Integer>> currentSolucion, Set<Integer> vertices){
 		if (currentSolucion.isEmpty()) {
@@ -30,34 +49,52 @@ public class Backtracking {
 		return res != 0 ? res : Integer.MAX_VALUE;
 	}
 	
+/* new Comparator<Arco<Integer>>() {
+
+			@Override
+			public int compare(Arco<Integer> o1, Arco<Integer> o2) {
+				return Integer.compare(o2.getEtiqueta(), o1.getEtiqueta());
+			}
+			
+		} */
+
 	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> solve(Grafo<Integer> grafo){
-		Queue<Arco<Integer>> arcos = new LinkedList<>();
+		LinkedList<Arco<Integer>> arcos = new LinkedList<>();
 		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
 			arcos.add(it.next()); //heuristica: si ordeno los arcos por peso podo mas cuando (currentsolution + candidate > bestSolution), encuentro antes la mejor solucion
 		}
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> solucion = new SimpleEntry<HashSet<Arco<Integer>>,Integer>(new HashSet<>(grafo.cantidadArcos()), 0);
-		HashSet<Arco<Integer>> parcial = new HashSet<>(grafo.cantidadArcos());
-		solucion = internalBacktracking(grafo, arcos, solucion, parcial);
-		return solucion;
+		Collections.sort(arcos, new Comparator<Arco<Integer>>() {
+			@Override
+			public int compare(Arco<Integer> o1, Arco<Integer> o2) {
+				return Integer.compare(o2.getEtiqueta(), o1.getEtiqueta());
+			}
+		});
+		Solutions s = new Solutions(grafo.cantidadArcos());
+		internalBacktracking(grafo.getVertices(), arcos, s);
+		return new SimpleEntry<HashSet<Arco<Integer>>,Integer>(s.bestSolution, s.bestDistance);
 	}
 	
-	static private SimpleEntry<HashSet<Arco<Integer>>, Integer> internalBacktracking(Grafo<Integer> grafo, Queue<Arco<Integer>> arcos, SimpleEntry<HashSet<Arco<Integer>>, Integer> bestSolucion, HashSet<Arco<Integer>> currentSolucion){ //O(n) donde n es la cantidad de arcos
-		bestSolucion.setValue(bestSolucion.getValue()+1);
-		if (isValid(currentSolucion, grafo.getVertices())) {
-			if (distanceAdder(currentSolucion) < distanceAdder(bestSolucion.getKey())) {
-				return new SimpleEntry<HashSet<Arco<Integer>>,Integer>(new HashSet<>(currentSolucion), bestSolucion.getValue()) ;
+	static private void internalBacktracking(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s){ //O(n) donde n es la cantidad de arcos
+		//bestSolucion.setValue(bestSolucion.getValue()+1);
+		metric++;
+		if (isValid(s.currentSolution, vertices)) {
+			if (s.currentDistance < s.bestDistance) {
+				s.bestSolution = new HashSet<>(s.currentSolution);
+				s.bestDistance = s.currentDistance;
 			}
 		} else {
 			
 			for (int i = 0; i < arcos.size(); i++) { //se puede aplicar poda si currentsolution + candidate > bestSolution, se puede podar con union find tambien
-				Arco<Integer> candidate = arcos.poll();
-				currentSolucion.add(candidate);
-				if (distanceAdder(currentSolucion) <= 500)
-					bestSolucion = internalBacktracking(grafo, arcos, bestSolucion, currentSolucion);
-				currentSolucion.remove(candidate);
-				arcos.add(candidate);
+				Arco<Integer> candidate = arcos.removeFirst();
+				s.currentSolution.add(candidate);
+				s.currentDistance += candidate.getEtiqueta();
+				if (s.currentDistance < s.bestDistance){
+					internalBacktracking(vertices, arcos, s);
+				}
+				s.currentDistance -= candidate.getEtiqueta();
+				s.currentSolution.remove(candidate);
+				arcos.addLast(candidate);
 			}
 		}
-		return bestSolucion;
 	}
 }

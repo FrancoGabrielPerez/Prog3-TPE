@@ -103,7 +103,7 @@ public class TPE {
 	
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
-		String path = "Prog3-TPE/Datasets/dataset3.txt";
+		String path = "./Datasets/dataset3.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
 		System.out.println(grafo.toString());
@@ -116,6 +116,8 @@ public class TPE {
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolution = Backtracking.solve(grafo);
 		System.out.println(backtrackingSolution.getKey().toString());
 		System.out.println(backtrackingSolution.getValue());
+		System.out.println(Backtracking.metric);
 		
+		System.out.println(grafo.getVertices());
 	}
 }
