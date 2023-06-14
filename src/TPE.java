@@ -118,5 +118,8 @@ public class TPE {
 		
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolution = Backtracking.solve(grafo);
 		printStations(backtrackingSolution, "Backtracking");
+		
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolutioncoso = Backtracking.solvecoso(grafo);
+		printStations(backtrackingSolutioncoso, "coso");
 	}
 }
