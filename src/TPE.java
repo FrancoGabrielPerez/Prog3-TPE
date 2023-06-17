@@ -99,7 +99,7 @@ public class TPE {
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
 
-		String path = "Prog3-TPE/Datasets/dataset1.txt";
+		String path = "./Datasets/dataset1.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
 		// System.out.println(grafo.toString());
