@@ -99,7 +99,7 @@ public class TPE {
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
 
-		String path = "./Datasets/dataset3.txt";
+		String path = "Prog3-TPE/Datasets/dataset1.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
 		// System.out.println(grafo.toString());
@@ -109,10 +109,8 @@ public class TPE {
 		printStations(dijkstraSolution, "Dijkstra");
 		System.out.println();
 
-		// NOTA: si lo dejamos como parte del trabajo, hay que adaptar la salida del algoritmo para que
-		// sea similar a las que tenemos.
-		System.out.println("Prim");
-		PrimAlgorithm.primMST(grafo);
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> primAlgorithm = PrimAlgorithm.primMST(grafo);
+		printStations(primAlgorithm, "Prim");
 		
 		System.out.println();
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolution = Backtracking.solve(grafo);

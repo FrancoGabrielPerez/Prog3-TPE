@@ -1,13 +1,16 @@
 package Servicios;
 
 import java.util.*;
+import java.util.AbstractMap.SimpleEntry;
+
 import Grafo.*;
 
 public class PrimAlgorithm <T> {
 
-    static public void primMST(Grafo<Integer> grafo) {
+    static public SimpleEntry<HashSet<Arco<Integer>>, Integer>  primMST(Grafo<Integer> grafo) {
 
-        // Se crea el set de Arcos del grafo
+        HashSet<Arco<Integer>> solution = new HashSet<Arco<Integer>>();
+        // Crear el set de Arcos del grafo
         Set<Arco<Integer>> edges = new HashSet<>();
 		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
 			edges.add(it.next()); 
@@ -27,11 +30,11 @@ public class PrimAlgorithm <T> {
         // Agregar los arcos adyacentes al vértice inicial al minHeap
         addAdjacentEdges(startVertex, edges, minHeap);
 
-        int totalWeight = 0;
+        
         int metric = 0;
         // Iterar hasta que se visiten todos los vértices
         while (visited.size() < grafo.cantidadVertices()) {
-            //metric++;
+            metric++;
             // Extraer el arco de menor peso del minHeap
             Arco<Integer> minEdge = minHeap.poll();
             
@@ -40,15 +43,13 @@ public class PrimAlgorithm <T> {
 
             // Si el vértice adyacente no ha sido visitado, agregarlo al árbol y marcarlo como visitado
             if (!visited.contains(nextVertex)) {
-                metric++;
+                //metric++;
                 visited.add(nextVertex);
-                totalWeight += minEdge.getEtiqueta();
-                System.out.println("Edge: " + minEdge.getVerticeOrigen() + " - " + minEdge.getVerticeDestino() + ", Weight: " + minEdge.getEtiqueta());
+                solution.add(minEdge);
                 addAdjacentEdges(nextVertex, edges, minHeap);
             }
         }
-        System.out.println("Total weight: " + totalWeight);
-        System.out.println("Metrica: " + metric);
+        return new SimpleEntry<HashSet<Arco<Integer>>, Integer> (solution, metric); 
     }
 
     static private void addAdjacentEdges(Integer vertex, Set<Arco<Integer>> edges, PriorityQueue<Arco<Integer>> minHeap) {
