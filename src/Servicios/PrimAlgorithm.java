@@ -5,12 +5,12 @@ import Grafo.*;
 
 public class PrimAlgorithm <T> {
 
-    static public void primMST(Grafo<Integer> vertices) {
+    static public void primMST(Grafo<Integer> grafo) {
 
-        
+        // Se crea el set de Arcos del grafo
         Set<Arco<Integer>> edges = new HashSet<>();
-		for (Iterator<Arco<Integer>> it = vertices.obtenerArcos(); it.hasNext();) {
-			edges.add(it.next()); //heuristica: si ordeno los arcos por peso podo mas cuando (currentsolution + candidate > bestSolution), encuentro antes la mejor solucion
+		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
+			edges.add(it.next()); 
 		}
 
         // Crear un conjunto para almacenar los vértices visitados
@@ -20,7 +20,7 @@ public class PrimAlgorithm <T> {
         PriorityQueue<Arco<Integer>> minHeap = new PriorityQueue<>(Comparator.comparingInt(Arco<Integer>::getEtiqueta));
 
         // Escoger un vértice inicial arbitrario
-        Iterator<Integer> itVertices = vertices.obtenerVertices();
+        Iterator<Integer> itVertices = grafo.obtenerVertices();
         Integer startVertex = itVertices.next();
         visited.add(startVertex);
 
@@ -30,7 +30,7 @@ public class PrimAlgorithm <T> {
         int totalWeight = 0;
         int metric = 0;
         // Iterar hasta que se visiten todos los vértices
-        while (visited.size() < vertices.cantidadVertices()) {
+        while (visited.size() < grafo.cantidadVertices()) {
             //metric++;
             // Extraer el arco de menor peso del minHeap
             Arco<Integer> minEdge = minHeap.poll();

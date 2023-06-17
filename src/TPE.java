@@ -99,11 +99,11 @@ public class TPE {
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
 
-		String path = "Prog3-TPE/Datasets/dataset2.txt";
+		String path = "./Datasets/dataset3.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
-		System.out.println(grafo.toString());
-		System.out.println(grafo.getVertices());
+		// System.out.println(grafo.toString());
+		// System.out.println(grafo.getVertices());
 
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolution = Dijkstra.solve(grafo);
 		printStations(dijkstraSolution, "Dijkstra");
