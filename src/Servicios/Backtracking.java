@@ -106,6 +106,8 @@ public class Backtracking {
 		} else {
 			Arco<Integer> candidate = arcos.removeFirst();
 				internalBacktrackingcoso(vertices, arcos, s);
+				// arcos.addFirst(candidate);
+				// candidate = arcos.removeFirst();
 				s.currentSolution.add(candidate);
 				s.currentDistance += candidate.getEtiqueta();
 				if ((s.currentDistance < s.bestDistance) && (s.currentSolution.size() < vertices.size())){

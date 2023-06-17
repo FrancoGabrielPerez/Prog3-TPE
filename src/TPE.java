@@ -82,15 +82,7 @@ public class TPE {
 				}
 			}           
         }
-	}
-
-	static private int distanceAdder(HashSet<Arco<Integer>> solution) {
-		int res = 0;
-		for (Arco<Integer> a : solution) {
-			res += a.getEtiqueta();
-		}
-		return res != 0 ? res : Integer.MAX_VALUE;
-	}
+	}	
 
 	static private void printStations(SimpleEntry<HashSet<Arco<Integer>>, Integer> solution, String technique){
 		System.out.println(technique);
@@ -107,7 +99,7 @@ public class TPE {
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
 
-		String path = "./Datasets/dataset2.txt";
+		String path = "Prog3-TPE/Datasets/dataset2.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
 		System.out.println(grafo.toString());
@@ -115,10 +107,18 @@ public class TPE {
 
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolution = Dijkstra.solve(grafo);
 		printStations(dijkstraSolution, "Dijkstra");
+		System.out.println();
+
+		// NOTA: si lo dejamos como parte del trabajo, hay que adaptar la salida del algoritmo para que
+		// sea similar a las que tenemos.
+		System.out.println("Prim");
+		PrimAlgorithm.primMST(grafo);
 		
+		System.out.println();
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolution = Backtracking.solve(grafo);
 		printStations(backtrackingSolution, "Backtracking");
 		
+		System.out.println();
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolutioncoso = Backtracking.solvecoso(grafo);
 		printStations(backtrackingSolutioncoso, "coso");
 	}
