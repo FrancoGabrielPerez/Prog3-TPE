@@ -10,6 +10,7 @@ public class PrimAlgorithm <T> {
     static public SimpleEntry<HashSet<Arco<Integer>>, Integer>  primMST(Grafo<Integer> grafo) {
 
         HashSet<Arco<Integer>> solution = new HashSet<Arco<Integer>>();
+        
         // Crear el set de Arcos del grafo
         Set<Arco<Integer>> edges = new HashSet<>();
 		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {

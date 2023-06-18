@@ -87,19 +87,26 @@ public class TPE {
 	static private void printStations(SimpleEntry<HashSet<Arco<Integer>>, Integer> solution, String technique){
 		System.out.println(technique);
 		int distance = 0;
+		int prints = 0;
+		System.out.println("Conexiones: ");
 		for (Arco<Integer> a : solution.getKey()) {
 			System.out.print("E" + a.getVerticeOrigen() + "-E" + a.getVerticeDestino() + ", ");
+			prints++;
+			if (prints == 4) {
+				System.out.println();
+				prints = 0;
+			}
 			distance += a.getEtiqueta();
 		}
-		System.out.println();
+		//System.out.println();
 		System.out.println("Distancia: " + distance + " kms.");
-		System.out.println("Metrica (bucles):  "+ solution.getValue());
+		System.out.println("Metrica (iteraciones):  "+ solution.getValue());
 	}
 	
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
 
-		String path = "./Datasets/dataset1.txt";
+		String path = "Prog3-TPE/Datasets/dataset3.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
 		// System.out.println(grafo.toString());
@@ -114,10 +121,10 @@ public class TPE {
 		
 		System.out.println();
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolution = Backtracking.solve(grafo);
-		printStations(backtrackingSolution, "Backtracking");
+		printStations(backtrackingSolution, "Backtracking Factorial");
 		
 		System.out.println();
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolutioncoso = Backtracking.solvecoso(grafo);
-		printStations(backtrackingSolutioncoso, "coso");
+		printStations(backtrackingSolutioncoso, "Backtracking Binario");
 	}
 }
