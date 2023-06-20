@@ -37,7 +37,7 @@ public class Backtracking {
 		return UF.numberOfSets() == 1; // Si la cantidad de conjuntos es 1 el grafo es conexo
 	}
 
-	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> solve(Grafo<Integer> grafo){
+	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> bactrackingFactorial(Grafo<Integer> grafo){
 		LinkedList<Arco<Integer>> arcos = new LinkedList<>();
 		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
 			arcos.add(it.next()); //heuristica: si ordeno los arcos por peso podo mas cuando (currentsolution + candidate > bestSolution), encuentro antes la mejor solucion
@@ -49,10 +49,10 @@ public class Backtracking {
 			}
 		}); */ //con esto solo no alcanza, tal vez matener la lista ordenada?
 		Solutions s = new Solutions(grafo.cantidadArcos());
-		internalBacktracking(grafo.getVertices(), arcos, s);
+		internalBacktrackingFactorial(grafo.getVertices(), arcos, s);
 		return new SimpleEntry<HashSet<Arco<Integer>>,Integer>(s.bestSolution, metric);
 	}
-	static private void internalBacktracking(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s){ //O(n!) donde n es la cantidad de arcos
+	static private void internalBacktrackingFactorial(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s){ //O(n!) donde n es la cantidad de arcos
 		metric++;
 		if (isValid(s.currentSolution, vertices)) {
 			if (s.currentDistance < s.bestDistance) {
@@ -66,7 +66,7 @@ public class Backtracking {
 				s.currentSolution.add(candidate);
 				s.currentDistance += candidate.getEtiqueta();
 				if ((s.currentDistance < s.bestDistance) && (s.currentSolution.size() < vertices.size())){
-					internalBacktracking(vertices, arcos, s);
+					internalBacktrackingFactorial(vertices, arcos, s);
 				}
 				// internalBacktracking(vertices, arcos, s);
 				s.currentDistance -= candidate.getEtiqueta();
@@ -76,7 +76,7 @@ public class Backtracking {
 		}
 	}
 	
-	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> solvecoso(Grafo<Integer> grafo){//TODO limpiar codigo y cambiar nombre metodo
+	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinary(Grafo<Integer> grafo){//TODO limpiar codigo y cambiar nombre metodo
 		LinkedList<Arco<Integer>> arcos = new LinkedList<>();
 		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
 			arcos.add(it.next()); //heuristica: si ordeno los arcos por peso podo mas cuando (currentsolution + candidate > bestSolution), encuentro antes la mejor solucion
@@ -88,12 +88,12 @@ public class Backtracking {
 			}
 		}); */ //con esto solo no alcanza, tal vez matener la lista ordenada?
 		Solutions s = new Solutions(grafo.cantidadArcos());
-		internalBacktrackingcoso(grafo.getVertices(), arcos, s);
+		internalBacktrackingBinary(grafo.getVertices(), arcos, s);
 		return new SimpleEntry<HashSet<Arco<Integer>>,Integer>(s.bestSolution, metric);
 	}
 	
 	
-	static private void internalBacktrackingcoso(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s){ //O(n!) donde n es la cantidad de arcos
+	static private void internalBacktrackingBinary(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s){ //O(n!) donde n es la cantidad de arcos
 		metric++;
 		//System.out.println(metric);
 		if (arcos.isEmpty()) {
@@ -105,13 +105,13 @@ public class Backtracking {
 			}
 		} else {
 			Arco<Integer> candidate = arcos.removeFirst();
-				internalBacktrackingcoso(vertices, arcos, s);
+				internalBacktrackingBinary(vertices, arcos, s);
 				// arcos.addFirst(candidate);
 				// candidate = arcos.removeFirst();
 				s.currentSolution.add(candidate);
 				s.currentDistance += candidate.getEtiqueta();
 				if ((s.currentDistance < s.bestDistance) && (s.currentSolution.size() < vertices.size())){
-					internalBacktrackingcoso(vertices, arcos, s);
+					internalBacktrackingBinary(vertices, arcos, s);
 				}
 				// internalBacktrackingcoso(vertices, arcos, s);
 				s.currentDistance -= candidate.getEtiqueta();

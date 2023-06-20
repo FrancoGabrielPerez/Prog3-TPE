@@ -5,7 +5,7 @@ import java.util.AbstractMap.SimpleEntry;
 
 import Grafo.*;
 
-public class PrimAlgorithm <T> {
+public class Prim <T> {
 
     static public SimpleEntry<HashSet<Arco<Integer>>, Integer>  primMST(Grafo<Integer> grafo) {
 

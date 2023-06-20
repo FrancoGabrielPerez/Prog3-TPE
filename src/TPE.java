@@ -106,25 +106,25 @@ public class TPE {
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
 
-		String path = "./Datasets/dataset3.txt";
+		String path = "Prog3-TPE/Datasets/dataset1.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
 		// System.out.println(grafo.toString());
 		// System.out.println(grafo.getVertices());
 
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolution = Dijkstra.solve(grafo);
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolution = Dijkstra.dijkstraSolver(grafo);
 		printStations(dijkstraSolution, "Dijkstra");
 		System.out.println();
 
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> primAlgorithm = PrimAlgorithm.primMST(grafo);
-		printStations(primAlgorithm, "Prim");
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> primSolution = Prim.primMST(grafo);
+		printStations(primSolution, "Prim");
 		
 		System.out.println();
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolution = Backtracking.solve(grafo);
-		printStations(backtrackingSolution, "Backtracking Factorial");
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingFactorialSolution = Backtracking.bactrackingFactorial(grafo);
+		printStations(backtrackingFactorialSolution, "Backtracking Factorial");
 		
 		System.out.println();
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingSolutioncoso = Backtracking.solvecoso(grafo);
-		printStations(backtrackingSolutioncoso, "Backtracking Binario");
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinarySolution = Backtracking.backtrackingBinary(grafo);
+		printStations(backtrackingBinarySolution, "Backtracking Binario");
 	}
 }

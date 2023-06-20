@@ -44,8 +44,10 @@ public interface Grafo<T> {
 	// Obtiene un iterador que me permite recorrer todos los arcos que parten desde verticeId
 	public Iterator<Arco<T>> obtenerArcos(int verticeId);
 	
-	Set<Integer> getVertices(); //consultar
+	// Obtiene un Set con los vertices de un grafo
+	Set<Integer> getVertices();
 
+	// Obtiene un Set con los vertices adyacentes de otro.
 	Set<Integer> getAdjVertices(int vertexId);
 	
 }
