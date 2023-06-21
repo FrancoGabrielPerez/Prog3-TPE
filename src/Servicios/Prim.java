@@ -1,11 +1,15 @@
 package Servicios;
 
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.PriorityQueue;
+import java.util.Set;
 import java.util.AbstractMap.SimpleEntry;
 
 import Grafo.*;
 
-public class Prim <T> {
+public class Prim {
 
     static public SimpleEntry<HashSet<Arco<Integer>>, Integer>  primMST(Grafo<Integer> grafo) {
 
@@ -42,9 +46,8 @@ public class Prim <T> {
             // Obtener el vértice adyacente no visitado
             Integer nextVertex = minEdge.getVerticeDestino();
 
-            // Si el vértice adyacente no ha sido visitado, agregarlo al árbol y marcarlo como visitado
+            // Si el vértice adyacente no ha sido visitado, agregarlo a la solucion y marcarlo como visitado
             if (!visited.contains(nextVertex)) {
-                //metric++;
                 visited.add(nextVertex);
                 solution.add(minEdge);
                 addAdjacentEdges(nextVertex, edges, minHeap);

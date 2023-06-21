@@ -1,7 +1,5 @@
 package Servicios;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -40,19 +38,13 @@ public class Backtracking {
 	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> bactrackingFactorial(Grafo<Integer> grafo){
 		LinkedList<Arco<Integer>> arcos = new LinkedList<>();
 		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
-			arcos.add(it.next()); //heuristica: si ordeno los arcos por peso podo mas cuando (currentsolution + candidate > bestSolution), encuentro antes la mejor solucion
+			arcos.add(it.next());
 		}
-		/* Collections.sort(arcos, new Comparator<Arco<Integer>>() {
-			@Override
-			public int compare(Arco<Integer> o1, Arco<Integer> o2) {
-				return Integer.compare(o2.getEtiqueta(), o1.getEtiqueta());
-			}
-		}); */ //con esto solo no alcanza, tal vez matener la lista ordenada?
 		Solutions s = new Solutions(grafo.cantidadArcos());
 		internalBacktrackingFactorial(grafo.getVertices(), arcos, s);
 		return new SimpleEntry<HashSet<Arco<Integer>>,Integer>(s.bestSolution, metric);
 	}
-	static private void internalBacktrackingFactorial(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s){ //O(n!) donde n es la cantidad de arcos
+	static private void internalBacktrackingFactorial(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s){
 		metric++;
 		if (isValid(s.currentSolution, vertices)) {
 			if (s.currentDistance < s.bestDistance) {
@@ -68,7 +60,6 @@ public class Backtracking {
 				if ((s.currentDistance < s.bestDistance) && (s.currentSolution.size() < vertices.size())){
 					internalBacktrackingFactorial(vertices, arcos, s);
 				}
-				// internalBacktracking(vertices, arcos, s);
 				s.currentDistance -= candidate.getEtiqueta();
 				s.currentSolution.remove(candidate);
 				arcos.addLast(candidate);
@@ -76,26 +67,19 @@ public class Backtracking {
 		}
 	}
 	
-	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinary(Grafo<Integer> grafo){//TODO limpiar codigo y cambiar nombre metodo
+	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinary(Grafo<Integer> grafo){
 		LinkedList<Arco<Integer>> arcos = new LinkedList<>();
 		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
-			arcos.add(it.next()); //heuristica: si ordeno los arcos por peso podo mas cuando (currentsolution + candidate > bestSolution), encuentro antes la mejor solucion
+			arcos.add(it.next());
 		}
-		/* Collections.sort(arcos, new Comparator<Arco<Integer>>() {
-			@Override
-			public int compare(Arco<Integer> o1, Arco<Integer> o2) {
-				return Integer.compare(o2.getEtiqueta(), o1.getEtiqueta());
-			}
-		}); */ //con esto solo no alcanza, tal vez matener la lista ordenada?
 		Solutions s = new Solutions(grafo.cantidadArcos());
 		internalBacktrackingBinary(grafo.getVertices(), arcos, s);
 		return new SimpleEntry<HashSet<Arco<Integer>>,Integer>(s.bestSolution, metric);
 	}
 	
 	
-	static private void internalBacktrackingBinary(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s){ //O(n!) donde n es la cantidad de arcos
+	static private void internalBacktrackingBinary(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s){ 
 		metric++;
-		//System.out.println(metric);
 		if (arcos.isEmpty()) {
 			if (isValid(s.currentSolution, vertices)) {
 				if (s.currentDistance < s.bestDistance) {
@@ -106,14 +90,11 @@ public class Backtracking {
 		} else {
 			Arco<Integer> candidate = arcos.removeFirst();
 				internalBacktrackingBinary(vertices, arcos, s);
-				// arcos.addFirst(candidate);
-				// candidate = arcos.removeFirst();
 				s.currentSolution.add(candidate);
 				s.currentDistance += candidate.getEtiqueta();
 				if ((s.currentDistance < s.bestDistance) && (s.currentSolution.size() < vertices.size())){
 					internalBacktrackingBinary(vertices, arcos, s);
 				}
-				// internalBacktrackingcoso(vertices, arcos, s);
 				s.currentDistance -= candidate.getEtiqueta();
 				s.currentSolution.remove(candidate);
 				arcos.addFirst(candidate);

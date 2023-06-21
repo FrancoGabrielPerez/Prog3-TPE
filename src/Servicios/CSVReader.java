@@ -15,7 +15,7 @@ public class CSVReader {
 	
 	public CSVReader(String path) {
 		this.path = path;
-		this.grafo = new GrafoNoDirigido<>(); //es dirigido o no dirigido?
+		this.grafo = new GrafoNoDirigido<>();
 	}
 	
 	public Grafo<Integer> read() {

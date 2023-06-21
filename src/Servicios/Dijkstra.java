@@ -9,7 +9,7 @@ import java.util.AbstractMap.SimpleEntry;
 import Grafo.Arco;
 import Grafo.Grafo;
 
-public class Dijkstra { //TODO limapiar prints
+public class Dijkstra {
 	private static int metric = 0;
 	
 	static public HashMap<Integer, Integer> dijkstraVertex(Grafo<Integer> g, Integer origin){
@@ -31,13 +31,9 @@ public class Dijkstra { //TODO limapiar prints
 
 		// Mientras no este vacia la estructura de vertices a visitar
 		while (!toVisit.isEmpty()) {
-			// System.out.println(distance);
-			// System.out.println(parent);
 			int current = Collections.min(toVisit.entrySet(), Map.Entry.<Integer, Integer>comparingByValue()).getKey();
 			for (Integer v : g.getAdjVertices(current)) {
 				metric++;
-				// System.out.println("c=" + current + " / v= " + v);
-				// aca contar las veces que entra, esto seria la metrica
 				int currentDist = distance.get(current) + g.obtenerArco(current, v).getEtiqueta();
 				if (currentDist < distance.get(v)) {
 					distance.put(v, currentDist);
@@ -70,8 +66,6 @@ public class Dijkstra { //TODO limapiar prints
 					}
 				}
 			}
-			// System.out.println("best: " + bestDistance);
-			// System.out.println("current: " + currentDistance);
 			if (valid && currentDistance < bestDistance) {
 				bestDistance = currentDistance;
 				bestSolution = currentSolution;
@@ -79,6 +73,6 @@ public class Dijkstra { //TODO limapiar prints
 		}
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> arcSolution = new SimpleEntry<>(new HashSet<>(bestSolution.size()) , metric);
 		bestSolution.forEach((k,v) -> {if (v != null) arcSolution.getKey().add(g.obtenerArco(k, v));});
-		return arcSolution; // aca en vez de pasar la distancia pasamos la metrica
+		return arcSolution;
 	}
 }
