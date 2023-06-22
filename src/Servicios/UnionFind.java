@@ -18,7 +18,7 @@ public class UnionFind
     private HashMap<Integer, Integer> associatedSet;
     
     /**
-     * The number of disjoint sets
+     * The number of disjoint sets.
      */
     private int num;
     
@@ -27,10 +27,9 @@ public class UnionFind
      * 
      * @param vertices
      */
-    public UnionFind(Set<Integer> vertices)
-    {
+    public UnionFind(Set<Integer> vertices) {
         if (vertices.isEmpty())
-            throw new IllegalArgumentException("vertices is empty");
+            throw new IllegalArgumentException("Vertices is empty.");
         
         sets = new HashMap<>(vertices.size());
         associatedSet = new HashMap<>(vertices.size());
@@ -39,7 +38,7 @@ public class UnionFind
             sets.get(v).add(v);
             associatedSet.put(v, v);
         }
-        
+
         num = vertices.size();
     }
     
@@ -49,13 +48,12 @@ public class UnionFind
      * @param v
      * @return
      */
-    public int find(int v)
-    {
+    public int find(int v) {
         Integer res = associatedSet.get(v);
         if (res != null) {
             return res;
         } else {
-            throw new NoSuchElementException("Invalid element");
+            throw new NoSuchElementException("Invalid element.");
         }
     }
     
@@ -66,8 +64,7 @@ public class UnionFind
      * @param v
      * @return the representative of union 
      */
-    public int union(int u, int v)
-    {
+    public int union(int u, int v) {
         int setV = find(v);
         int setU = find(u);
         
@@ -93,8 +90,7 @@ public class UnionFind
         }
     }
     
-    public int numberOfSets()
-    {
+    public int numberOfSets() {
         return num;
     }
 }

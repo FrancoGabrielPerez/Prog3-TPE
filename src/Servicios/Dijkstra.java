@@ -12,24 +12,18 @@ import Grafo.Grafo;
 public class Dijkstra {
 	private static int metric = 0;
 	
-	static public HashMap<Integer, Integer> dijkstraVertex(Grafo<Integer> g, Integer origin){
+	static public HashMap<Integer, Integer> dijkstraVertex(Grafo<Integer> g, Integer origin) {
 		HashMap<Integer, Integer> distance = new HashMap<>(g.cantidadVertices());
 		HashMap<Integer, Integer> parent = new HashMap<>(g.cantidadVertices());
 
-		// Inicializar las estructuras de distancias en Integer.MAX_VALUE y el de padres en null, para cada vertice
 		g.getVertices().forEach(v -> {distance.put(v, Integer.MAX_VALUE); parent.put(v, null);});
-		
-		// Crear una estructura para almacenar los vertices a visitar		
 		HashMap<Integer, Integer> toVisit = new HashMap<>();
 
-		// Inicializar la estructura anterior con Integer.MAX_VALUE para cada vertice.
 		g.getAdjVertices(origin).forEach(v -> {toVisit.put(v, Integer.MAX_VALUE);});
 
-		// Agregar al vertice origen a la estructura de distancias y a la de visitar
 		distance.put(origin, 0);
 		toVisit.put(origin, 0);
 
-		// Mientras no este vacia la estructura de vertices a visitar
 		while (!toVisit.isEmpty()) {
 			int current = Collections.min(toVisit.entrySet(), Map.Entry.<Integer, Integer>comparingByValue()).getKey();
 			for (Integer v : g.getAdjVertices(current)) {
@@ -46,9 +40,10 @@ public class Dijkstra {
 		return parent;
 	}
 	
-	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolver(Grafo<Integer> g){
+	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolver(Grafo<Integer> g) {
 		HashMap<Integer, Integer> bestSolution = null;
 		int bestDistance = Integer.MAX_VALUE;
+
 		for (Integer v : g.getVertices()) {
 			HashMap<Integer, Integer> currentSolution = Dijkstra.dijkstraVertex(g, v);
 			int currentDistance = 0;
@@ -71,7 +66,7 @@ public class Dijkstra {
 				bestSolution = currentSolution;
 			}
 		}
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> arcSolution = new SimpleEntry<>(new HashSet<>(bestSolution.size()) , metric);
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> arcSolution = new SimpleEntry<>(new HashSet<>(bestSolution.size()), metric);
 		bestSolution.forEach((k,v) -> {if (v != null) arcSolution.getKey().add(g.obtenerArco(k, v));});
 		return arcSolution;
 	}

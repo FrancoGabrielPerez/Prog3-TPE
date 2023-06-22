@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import Grafo.*;
 
 public class CSVReader {
-
 	private String path;
 	private Grafo<Integer> grafo;
 	
@@ -18,8 +17,7 @@ public class CSVReader {
 		this.grafo = new GrafoNoDirigido<>();
 	}
 	
-	public Grafo<Integer> read() {
-		
+	public Grafo<Integer> read() {		
 		// Obtengo una lista con las lineas del archivo
 		// lines.get(0) tiene la primer linea del archivo
 		// lines.get(1) tiene la segunda linea del archivo... y así
@@ -59,9 +57,7 @@ public class CSVReader {
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
-		}
-		
+		}		
 		return lines;
 	}
-
 }
