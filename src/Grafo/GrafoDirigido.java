@@ -2,8 +2,10 @@ package Grafo;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 public class GrafoDirigido<T> implements Grafo<T> {
 
@@ -48,8 +50,9 @@ public class GrafoDirigido<T> implements Grafo<T> {
 	@Override
 	public void agregarArco(int verticeId1, int verticeId2, T etiqueta) {
 		if (graph.containsKey(verticeId1)) {
-			graph.get(verticeId1).put(verticeId2, new Arco<>(verticeId1, verticeId2, etiqueta));
-			cantArcs++;
+			if (graph.get(verticeId1).put(verticeId2, new Arco<>(verticeId1, verticeId2, etiqueta)) == null) {
+				cantArcs++;
+			}
 		}
 	}
 
@@ -199,5 +202,12 @@ public class GrafoDirigido<T> implements Grafo<T> {
 		return s;
 	}
 
+	public Set<Integer> getVertices() {
+		return new HashSet<>(graph.keySet());
+	}
+	
+	public Set<Integer> getAdjVertices(int vertexId) {
+		return new HashSet<>(graph.get(vertexId).keySet());
+	}
 	
 }
