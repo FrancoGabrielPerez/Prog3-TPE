@@ -43,7 +43,7 @@ public class Dijkstra {
 	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolver(Grafo<Integer> g) {
 		HashMap<Integer, Integer> bestSolution = null;
 		int bestDistance = Integer.MAX_VALUE;
-
+		metric = 0;
 		for (Integer v : g.getVertices()) {
 			HashMap<Integer, Integer> currentSolution = Dijkstra.dijkstraVertex(g, v);
 			int currentDistance = 0;

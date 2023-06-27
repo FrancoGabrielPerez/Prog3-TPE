@@ -55,7 +55,7 @@ public class Prim {
     }
 
     static private void addAdjacentEdges(Integer vertex, Set<Arco<Integer>> edges, PriorityQueue<Arco<Integer>> minHeap) {
-        for (Arco<Integer> edge : edges) {
+        for (Arco<Integer> edge : edges) {//TODO aca no hay que sumar metrica?
             if (edge.getVerticeOrigen() == vertex) {
                 minHeap.offer(edge);
             }
