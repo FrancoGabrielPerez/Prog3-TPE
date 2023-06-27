@@ -10,8 +10,9 @@ import java.util.AbstractMap.SimpleEntry;
 import Grafo.*;
 
 public class Prim {
-
+    
     static public SimpleEntry<HashSet<Arco<Integer>>, Integer>  primMST(Grafo<Integer> grafo) {
+        int metric = 0;
         HashSet<Arco<Integer>> solution = new HashSet<Arco<Integer>>();        
         
         // Se crea el set de Arcos del grafo
@@ -32,9 +33,8 @@ public class Prim {
         visited.add(startVertex);
 
         // Se agregan los arcos adyacentes al vertice inicial al minHeap
-        addAdjacentEdges(startVertex, edges, minHeap);
+        metric += addAdjacentEdges(startVertex, edges, minHeap);
         
-        int metric = 0;
         // Se itera hasta que se visiten todos los vertices
         while (visited.size() < grafo.cantidadVertices()) {
             metric++;
@@ -48,17 +48,20 @@ public class Prim {
             if (!visited.contains(nextVertex)) {
                 visited.add(nextVertex);
                 solution.add(minEdge);
-                addAdjacentEdges(nextVertex, edges, minHeap);
+                metric += addAdjacentEdges(nextVertex, edges, minHeap);
             }
         }
         return new SimpleEntry<HashSet<Arco<Integer>>, Integer> (solution, metric); 
     }
 
-    static private void addAdjacentEdges(Integer vertex, Set<Arco<Integer>> edges, PriorityQueue<Arco<Integer>> minHeap) {
+    static private int addAdjacentEdges(Integer vertex, Set<Arco<Integer>> edges, PriorityQueue<Arco<Integer>> minHeap) {
+        int internalMetric = 0;
         for (Arco<Integer> edge : edges) {//TODO aca no hay que sumar metrica?
+            internalMetric++;
             if (edge.getVerticeOrigen() == vertex) {
                 minHeap.offer(edge);
             }
         }
+        return internalMetric;
     }    
 }
