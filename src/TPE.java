@@ -106,7 +106,7 @@ public class TPE {
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
 
-		String path = "./Datasets/dataset1.txt";
+		String path = "./Datasets/dataset3.txt";
 		CSVReader reader = new CSVReader(path);
 		Grafo<Integer> grafo = reader.read();
 		// System.out.println(grafo.toString());
@@ -119,9 +119,9 @@ public class TPE {
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> primSolution = Prim.primMST(grafo);
 		printStations(primSolution, "Prim");
 		
-		System.out.println();
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingFactorialSolution = Backtracking.bactrackingFactorial(grafo);
-		printStations(backtrackingFactorialSolution, "Backtracking Factorial");
+		// System.out.println();
+		// SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingFactorialSolution = Backtracking.bactrackingFactorial(grafo);
+		// printStations(backtrackingFactorialSolution, "Backtracking Factorial");
 		
 		System.out.println();
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinarySolution = Backtracking.backtrackingBinary(grafo);

@@ -17,10 +17,9 @@ public class Backtracking {
 		
 		public Solutions(int capacity) {
 			bestSolution = new HashSet<>(capacity);
-			bestDistance = Integer.MAX_VALUE;
+			bestDistance = 450; //TODO dejas en max value
 			currentSolution = new HashSet<>(capacity);
 			currentDistance = 0;
-			metric = 0;
 		}
 	}
 	
@@ -40,6 +39,7 @@ public class Backtracking {
 		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
 			arcos.add(it.next());
 		}
+		metric = 0;
 		Solutions s = new Solutions(grafo.cantidadArcos());
 		internalBacktrackingFactorial(grafo.getVertices(), arcos, s);
 		return new SimpleEntry<HashSet<Arco<Integer>>, Integer>(s.bestSolution, metric);
@@ -72,12 +72,14 @@ public class Backtracking {
 		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
 			arcos.add(it.next());
 		}
+		metric = 0;
 		Solutions s = new Solutions(grafo.cantidadArcos());
-		internalBacktrackingBinary(grafo.getVertices(), arcos, s);
+		UnionFind uFind = new UnionFind(grafo.getVertices());
+		internalBacktrackingBinary(grafo.getVertices(), arcos, s, uFind);
 		return new SimpleEntry<HashSet<Arco<Integer>>, Integer>(s.bestSolution, metric);
 	}	
 	
-	static private void internalBacktrackingBinary(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s) { 
+	static private void internalBacktrackingBinary(Set<Integer> vertices, LinkedList<Arco<Integer>> arcos, Solutions s, UnionFind uFind) { 
 		metric++;
 		if (arcos.isEmpty()) {
 			if (isValid(s.currentSolution, vertices)) {
@@ -88,14 +90,21 @@ public class Backtracking {
 			}
 		} else {
 			Arco<Integer> candidate = arcos.removeFirst();
-			internalBacktrackingBinary(vertices, arcos, s);
-			s.currentSolution.add(candidate);
-			s.currentDistance += candidate.getEtiqueta();
-			if ((s.currentDistance < s.bestDistance) && (s.currentSolution.size() < vertices.size())){
-				internalBacktrackingBinary(vertices, arcos, s);
+			internalBacktrackingBinary(vertices, arcos, s, uFind);
+			// System.out.println(candidate);
+			// System.out.println(uFind.find(candidate.getVerticeOrigen()));
+			// System.out.println(uFind.find(candidate.getVerticeDestino()));
+			if (uFind.find(candidate.getVerticeOrigen()) != uFind.find(candidate.getVerticeDestino())) {
+				UnionFind newuFind = (UnionFind) uFind.clone();
+				newuFind.union(candidate.getVerticeOrigen(), candidate.getVerticeDestino());
+				s.currentSolution.add(candidate);
+				s.currentDistance += candidate.getEtiqueta();
+				if ((s.currentDistance < s.bestDistance) && (s.currentSolution.size() < vertices.size())){
+					internalBacktrackingBinary(vertices, arcos, s, newuFind);
+				}
+				s.currentDistance -= candidate.getEtiqueta();
+				s.currentSolution.remove(candidate);
 			}
-			s.currentDistance -= candidate.getEtiqueta();
-			s.currentSolution.remove(candidate);
 			arcos.addFirst(candidate);
 		}
 	}

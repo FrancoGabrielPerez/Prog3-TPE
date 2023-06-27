@@ -5,8 +5,7 @@ import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.HashSet;
 
-public class UnionFind
-{
+public class UnionFind implements Cloneable{
     /**
      * Sets of vertices. 
      */
@@ -41,7 +40,19 @@ public class UnionFind
 
         num = vertices.size();
     }
+
+    public UnionFind(HashMap<Integer, HashSet<Integer>> sets, HashMap<Integer, Integer> associatedSet, int num){
+        this.sets = new HashMap<>(sets);
+        this.associatedSet = new HashMap<>(associatedSet);
+        this.num = num;
+    }
     
+    @Override
+    protected Object clone() {
+        UnionFind newInstance = new UnionFind(this.sets, this.associatedSet, this.num);
+        return newInstance;
+    }
+
     /**
      * Find set of vertex v
      * 
