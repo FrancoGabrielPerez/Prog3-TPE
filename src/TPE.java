@@ -84,7 +84,36 @@ public class TPE {
         }
 	}	
 
-	static private void printStations(SimpleEntry<HashSet<Arco<Integer>>, Integer> solution, String technique){
+	static public void TestParte2(){
+		Integer dataset = 1;
+		try (Scanner scanner = new Scanner(System.in)){            
+            System.out.print("Ingrese dataset a probar: ");
+            dataset = scanner.nextInt();
+			
+        }
+		String path = "./Datasets/dataset" + dataset +".txt";
+		CSVReader reader = new CSVReader(path);
+		Grafo<Integer> grafo = reader.read();
+		// System.out.println(grafo.toString()); //Imprime el grafo para corroborar que se cargo corectamente
+
+		int cota;
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolution = Dijkstra.dijkstraSolver(grafo);
+		cota = printStations(dijkstraSolution, "Dijkstra");
+		System.out.println();
+
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> primSolution = Prim.primMST(grafo);
+		cota = printStations(primSolution, "Prim");
+		
+		System.out.println();
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinarySolution = Backtracking.backtrackingBinary(grafo, cota);
+		printStations(backtrackingBinarySolution, "Backtracking Binario");
+
+		System.out.println();
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingFactorialSolution = Backtracking.bactrackingFactorial(grafo, cota);
+		printStations(backtrackingFactorialSolution, "Backtracking Factorial");
+	}
+
+	static private int printStations(SimpleEntry<HashSet<Arco<Integer>>, Integer> solution, String technique){
 		System.out.println(technique);
 		int distance = 0;
 		int prints = 0;
@@ -98,33 +127,13 @@ public class TPE {
 			}
 			distance += a.getEtiqueta();
 		}
-		//System.out.println();
 		System.out.println("Distancia: " + distance + " kms.");
 		System.out.println("Metrica (iteraciones):  "+ solution.getValue());
+		return distance;
 	}
 	
 	public static <T> void main(String[] args) throws Exception {
 		//TestParte1();
-
-		String path = "./Datasets/dataset2.txt";
-		CSVReader reader = new CSVReader(path);
-		Grafo<Integer> grafo = reader.read();
-		// System.out.println(grafo.toString());
-		// System.out.println(grafo.getVertices());
-
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolution = Dijkstra.dijkstraSolver(grafo);
-		printStations(dijkstraSolution, "Dijkstra");
-		System.out.println();
-
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> primSolution = Prim.primMST(grafo);
-		printStations(primSolution, "Prim");
-		
-		// System.out.println();
-		// SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingFactorialSolution = Backtracking.bactrackingFactorial(grafo);
-		// printStations(backtrackingFactorialSolution, "Backtracking Factorial");
-		
-		System.out.println();
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinarySolution = Backtracking.backtrackingBinary(grafo);
-		printStations(backtrackingBinarySolution, "Backtracking Binario");
+		TestParte2();;
 	}
 }
