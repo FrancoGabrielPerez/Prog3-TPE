@@ -105,7 +105,7 @@ public class TPE {
 		cota = printStations(primSolution, "Prim");
 		
 		System.out.println();
-		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinarySolution = Backtracking.backtrackingBinary(grafo); // tambien hay un metodo para llamarlo sin cota
+		SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinarySolution = Backtracking.backtrackingBinary(grafo, cota); // tambien hay un metodo para llamarlo sin cota
 		printStations(backtrackingBinarySolution, "Backtracking Binario");
 
 		System.out.println();
