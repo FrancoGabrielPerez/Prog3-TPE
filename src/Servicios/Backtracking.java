@@ -17,7 +17,7 @@ public class Backtracking {
 		
 		public Solutions(int capacity, int cota) {
 			bestSolution = new HashSet<>(capacity);
-			bestDistance = cota; //TODO dejas en max value
+			bestDistance = cota;
 			currentSolution = new HashSet<>(capacity);
 			currentDistance = 0;
 		}
@@ -32,6 +32,10 @@ public class Backtracking {
 				uFind.union(a.getVerticeOrigen(), a.getVerticeDestino()); // Hace el union sobre los vertices de ese arco
 		}
 		return uFind.numberOfSets() == 1; // Si la cantidad de conjuntos es 1 el grafo es conexo
+	}
+
+	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> bactrackingFactorial(Grafo<Integer> grafo) {
+		return bactrackingFactorial(grafo, Integer.MAX_VALUE);
 	}
 
 	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> bactrackingFactorial(Grafo<Integer> grafo, int cota) {
@@ -67,6 +71,10 @@ public class Backtracking {
 		}
 	}
 	
+	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinary(Grafo<Integer> grafo) {
+		return backtrackingBinary(grafo, Integer.MAX_VALUE);
+	}
+
 	static public SimpleEntry<HashSet<Arco<Integer>>, Integer> backtrackingBinary(Grafo<Integer> grafo, int cota) {
 		LinkedList<Arco<Integer>> arcos = new LinkedList<>();
 		for (Iterator<Arco<Integer>> it = grafo.obtenerArcos(); it.hasNext();) {
@@ -88,9 +96,6 @@ public class Backtracking {
 			}
 		} else {
 			Arco<Integer> candidate = arcos.removeFirst();
-			// System.out.println(candidate);
-			// System.out.println(uFind.find(candidate.getVerticeOrigen()));
-			// System.out.println(uFind.find(candidate.getVerticeDestino()));
 			if (uFind.find(candidate.getVerticeOrigen()) != uFind.find(candidate.getVerticeDestino())) {
 				UnionFind newuFind = (UnionFind) uFind.clone();
 				newuFind.union(candidate.getVerticeOrigen(), candidate.getVerticeDestino());
