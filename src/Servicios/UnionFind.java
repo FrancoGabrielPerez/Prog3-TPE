@@ -3,6 +3,7 @@ package Servicios;
 import java.util.HashMap;
 import java.util.NoSuchElementException;
 import java.util.Set;
+import java.util.Map.Entry;
 import java.util.HashSet;
 
 public class UnionFind implements Cloneable{
@@ -42,7 +43,10 @@ public class UnionFind implements Cloneable{
     }
 
     public UnionFind(HashMap<Integer, HashSet<Integer>> sets, HashMap<Integer, Integer> associatedSet, int num){
-        this.sets = new HashMap<>(sets);
+        this.sets = new HashMap<>(sets.size());
+        for (Entry<Integer, HashSet<Integer>> e : sets.entrySet()) {
+            this.sets.put(e.getKey(), new HashSet<>(e.getValue()));
+        }
         this.associatedSet = new HashMap<>(associatedSet);
         this.num = num;
     }
