@@ -2,6 +2,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 import java.util.AbstractMap.SimpleEntry;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.HashSet;
 
 import Grafo.*;
@@ -91,10 +93,11 @@ public class TPE {
             dataset = scanner.nextInt();
 			
         }
-		String path = "./Datasets/dataset" + dataset +".txt";
-		CSVReader reader = new CSVReader(path);
+		Path currentWorkingDir = Paths.get("").toAbsolutePath();
+		String DatasetPath = currentWorkingDir.normalize().toString() + "\\Datasets\\dataset" + dataset +".txt";
+		CSVReader reader = new CSVReader(DatasetPath);
 		Grafo<Integer> grafo = reader.read();
-		// System.out.println(grafo.toString()); //Imprime el grafo para corroborar que se cargo corectamente
+		//System.out.println(grafo.toString()); //Imprime el grafo para corroborar que se cargo corectamente
 
 		int cota;
 		SimpleEntry<HashSet<Arco<Integer>>, Integer> dijkstraSolution = Dijkstra.dijkstraSolver(grafo);
@@ -126,6 +129,9 @@ public class TPE {
 				prints = 0;
 			}
 			distance += a.getEtiqueta();
+		}
+		if (prints != 0) {
+			System.out.println();
 		}
 		System.out.println("Distancia: " + distance + " kms.");
 		System.out.println("Metrica (iteraciones):  "+ solution.getValue());
